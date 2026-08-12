@@ -11,42 +11,66 @@ String[] addOrder(String[] currentList) {
             IO.println("Order Slot " + (i+1) + " is available");
             slotCount++;
         }
-    }
-    if (slotCount == 0) {
+    } if (slotCount == 0) {
         IO.println("There are no available slots.");
         //Returns early to break out of function without modifying the existing array
         return currentList;
     }
 
-    targetIndex = Integer.parseInt(IO.readln(
-            "Enter a slot to add order: ")
-    );
+    do {
+        targetIndex = Integer.parseInt(IO.readln(
+                "Enter a slot to add order: ")
+        );
 
-
-
+        if (currentList[targetIndex - 1] != null) {
+            IO.println("This slot isn't available!");
+        }
+    } while (currentList[targetIndex - 1] != null);
 
     details = IO.readln("\nEnter the order details: ");
-
     currentList[targetIndex - 1] = details;
-
     IO.println("Order Added!");
 
     return currentList;
 }
 
 String[] removeOrder(String[] currentList) {
+    IO.println("Current Order List: ");
+
+    //Simplifying by reusing an already existing method to display list
+    displayList(currentList);
+
+    int targetIndex = Integer.parseInt(
+            IO.readln("Enter an order to remove: ")
+    );
+
+    currentList[targetIndex - 1] = null;
 
     return currentList;
 }
 
 String[] editOrder(String[] currentList) {
+    IO.println("Current Order List: ");
 
+    //Simplifying by reusing an already existing method to display list
+    displayList(currentList);
+
+    int targetIndex = Integer.parseInt(
+            IO.readln("Enter an order to edit: ")
+    );
+
+    currentList[targetIndex-1] = IO.readln("Enter new details for this order: ");
     return currentList;
 }
 
 String findOrder(String[] currentList) {
-    int orderIndex = 0;
-    return currentList[orderIndex];
+    //This function is practically useless for such a small array, but it has to be here for the assignment
+    int orderIndex;
+    orderIndex = Integer.parseInt(IO.readln("Enter the slot of the order: "));
+
+    orderIndex -= 1;
+
+    return ("Order #" + (orderIndex + 1) + " is " + currentList[orderIndex]);
 }
 
 void displayList(String[] currentList){
@@ -63,6 +87,10 @@ void displayList(String[] currentList){
 
 void main() {
     int choice;
+    /* I forgot there really isn't a way to
+    have a dynamic array in Java (at least not without some complications)
+    so for now, this is locked to 4 slots
+     */
     String[] OrderList = new String[4];
 
 
@@ -77,14 +105,10 @@ void main() {
                 0. Exit
                 """);
 
+        //This is prone to breaking from a blank input, will be fixed in a future change
         choice = Integer.parseInt(
                 IO.readln("Choose an Option: ")
         );
-
-
-        //Error check
-
-
 
         switch (choice) {
             case 1:
@@ -93,9 +117,11 @@ void main() {
                 break;
             case 2:
                 IO.println("Remove Selected\n");
+                OrderList = removeOrder(OrderList);
                 break;
             case 3:
                 IO.println("Edit Selected\n");
+                OrderList = editOrder(OrderList);
                 break;
             case 4:
                 IO.println("Display Selected\n");
@@ -103,18 +129,21 @@ void main() {
                 break;
             case 5:
                 IO.println("Search Selected\n");
+                IO.println(findOrder(OrderList));
+
                 break;
             case 0:
                 String confirmation;
                 do {
                     confirmation = IO.readln(
-                            "Exit the program? (yes/no)"
+                            "Exit the program? (yes/no )"
                     );
                     if (confirmation.equalsIgnoreCase("yes")) {
                         choice = 0;
                         IO.println("Exiting Program");
                         break;
                     } else {
+                        //Basically just makes sure the choice is anything but 0 (otherwise the program would end)
                         choice = -1;
                     }
                 } while (!confirmation.equalsIgnoreCase("no"));
