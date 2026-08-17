@@ -1,5 +1,4 @@
 public class Orders {
-    //lalalalalala
     static String[] addOrder(String[] currentList) {
 
         int slotCount = 0;
