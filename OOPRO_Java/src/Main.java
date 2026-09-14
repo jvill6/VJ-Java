@@ -19,6 +19,7 @@ void main() {
 
 
     int choice;
+
     do {
         //This is prone to breaking from a blank input, will be fixed in a future change (nvm lmao)
         choice = Integer.parseInt(IO.readln("""
@@ -56,6 +57,16 @@ void main() {
                 System.out.println("That slot is not available!");
             } else {
 
+
+                System.out.println("\nList of Available Items: ");
+                for (int i = 0; i < Menu.length; i++) {
+                    System.out.println((i+1)+ ": " +Menu[i].getItemName() + ": " + Menu[i].getPrice() + "PHP");
+                }
+
+                int selectFood = Integer.parseInt(
+                        IO.readln("Enter the item being ordered: ")
+                );
+
                 Customer customer = new Customer(Integer.parseInt(
                         IO.readln("Enter an ID number for this customer: ")),
                         IO.readln("Enter the customers name: "),
@@ -64,13 +75,22 @@ void main() {
 
                 System.out.println("New Customer Created!");
 
-                System.out.println("\nList of Available Items: ");
-                for (int i = 0; i < Menu.length; i++) {
-                    System.out.println(Menu[i].getItemName() + ": " + Menu[i].getPrice() + "PHP");
-                }
+
+
+
 
                 System.out.println("Order Creation:");
-                OrderList[choice] = new Details(customer.getName(), ;
+                OrderList[choice] = new Details(customer.getName(),
+                        Integer.parseInt(IO.readln("Enter an ID for this order")),
+                        Menu[selectFood].getItemName(),
+                        IO.readln("Enter the quantity of this item: "),
+                        Menu[selectFood].getPrice(),
+
+
+
+
+
+                        );
 
             }
 

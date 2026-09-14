@@ -13,6 +13,5 @@ public class Menu {
         return price;
     }
     public String getItemName() { return itemName; }
-
     public String getCategory() { return category; }
 }
