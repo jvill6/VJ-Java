@@ -8,14 +8,14 @@ public class Order {
     public int serviceCost;
 
     //Stuff that gets referenced from other classes
-    public Customer customerName;
-    public Menu itemName;
+    public String customerName;
+    public String item;
     public double menuPrice;
 
-    public Order (Customer customerName, int orderId, Menu itemName, int dishAmount, double menuPrice, int serviceCost) {
+    public Order (String customerName, int orderId, String item, int dishAmount, double menuPrice, int serviceCost) {
         this.customerName = customerName;
         this.orderId = orderId;
-        this.itemName = itemName;
+        this.item = item;
         this.dishAmount = dishAmount;
         this.menuPrice = menuPrice;
         this.serviceCost = serviceCost;

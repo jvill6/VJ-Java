@@ -1,7 +1,7 @@
 public class Menu {
-    private String itemName;
-    private double price;
-    private String category;
+    private final String itemName;
+    private final double price;
+    private final String category;
 
     Menu (String itemName, double price, String category) {
         this.itemName = itemName;
@@ -12,5 +12,7 @@ public class Menu {
     public double getPrice() {
         return price;
     }
+    public String getItemName() { return itemName; }
 
+    public String getCategory() { return category; }
 }

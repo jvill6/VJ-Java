@@ -46,7 +46,32 @@ void main() {
             }
             if (available == 0) {
                 System.out.println("There are no available slots");
+                break;
             }
+            choice = Integer.parseInt(IO.readln("""
+                    Select a slot to add to: 
+                    """));
+
+            if (OrderList[choice] != null) {
+                System.out.println("That slot is not available!");
+            } else {
+
+                Customer customer = new Customer(Integer.parseInt(
+                        IO.readln("Enter an ID number for this customer: ")),
+                        IO.readln("Enter the customers name: "),
+                        IO.readln("Enter the customers phone #: ")
+                );
+
+                System.out.println("New Customer Created!");
+
+
+
+
+            }
+
+
+
+
             break;
     }
     } while (choice != 0);

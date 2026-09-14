@@ -6,9 +6,9 @@ public class Details extends Order {
     private String eventVenue;
     private int guestCount;
 
-    public Details(Customer customerName, int orderId, Menu itemName,int dishAmount, double menuPrice, int serviceCost,
+    public Details(String customerName, int orderId, String item, int dishAmount, double menuPrice, int serviceCost,
                    String eventDate, String eventVenue, int guestCount) {
-        super(customerName, orderId, itemName, dishAmount, menuPrice, serviceCost);
+        super(customerName, orderId, item, dishAmount, menuPrice, serviceCost);
 
         this.eventDate = eventDate;
         this.eventVenue = eventVenue;
@@ -23,7 +23,7 @@ public class Details extends Order {
     public String toString() {
         return "Order {Name: "  + customerName
                 + ", Order ID: " + orderId
-                + ", Item Name: " + itemName
+                + ", Item: " + item
                 + ", # of Guests: " + guestCount
                 + ", # of Servings per Guest: " + dishAmount
                 + ", Total # of Servings: " + (guestCount * dishAmount)
