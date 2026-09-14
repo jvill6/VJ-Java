@@ -7,6 +7,15 @@ void main() {
      */
     Order[] OrderList = new Order[4];
 
+    //Instantly initialize a preset menu (this could be changed so that a custom menu can be made later on
+    //String itemName, double price, String category
+    Menu[] Menu = new Menu[5];
+    Menu[0] = new Menu("Salad", 25, "Side");
+    Menu[1] = new Menu("Cupcake", 15, "Dessert");
+    Menu[2] = new Menu("Fried Chicken", 20, "Main");
+    Menu[3] = new Menu("Lumpia", 10, "Main");
+    Menu[4] = new Menu("Brownie", 15, "Dessert");
+
 
 
     int choice;
@@ -25,6 +34,20 @@ void main() {
                 """));
 
         //Switch REMOVED while I build the new classes
-
+    switch(choice) {
+        case 1:
+            System.out.println("\nCurrently Available Slots: ");
+            int available = 0;
+            for (int i = 0; i < OrderList.length; i++) {
+                if (OrderList[i] == null) {
+                    System.out.println("Slot " + (i + 1) + " is available.");
+                    available++;
+                }
+            }
+            if (available == 0) {
+                System.out.println("There are no available slots");
+            }
+            break;
+    }
     } while (choice != 0);
 }

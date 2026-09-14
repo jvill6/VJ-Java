@@ -15,15 +15,21 @@ public class Details extends Order {
         this.guestCount = guestCount;
     }
 
+    public double totalPrice() {
+        return (guestCount * dishAmount * menuPrice) + serviceCost;
+    }
+
     @Override
     public String toString() {
         return "Order {Name: "  + customerName
                 + ", Order ID: " + orderId
                 + ", Item Name: " + itemName
-                + ", # of Servings: " + dishAmount
-                + ", Price of Item: " + menuPrice
+                + ", # of Guests: " + guestCount
+                + ", # of Servings per Guest: " + dishAmount
+                + ", Total # of Servings: " + (guestCount * dishAmount)
+                + ", Price per Item: " + menuPrice
                 + ", Service Cost: " + serviceCost
-                + ", Total Cost: " + ((dishAmount * menuPrice) + serviceCost)
+                + ", Total Cost: " + totalPrice()
                 +"}\n";
     }
 
