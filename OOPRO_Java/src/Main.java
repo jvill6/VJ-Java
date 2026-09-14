@@ -48,6 +48,24 @@ void main() {
                 System.out.println("There are no available slots");
             }
             break;
+
+        case 2:
+            available = 0;
+            System.out.println("\nExisting orders:");
+            for (int i = 0; i < OrderList.length; i++) {
+                if (OrderList[i] != null) {
+                    System.out.println("Slot " + (i + 1) + ": \n");
+                } else {
+                    available++;
+                }
+            }
+            if (available >= OrderList.length) {
+                System.out.println("There are no filled slots");
+            }
+            break;
+
+
+
     }
     } while (choice != 0);
 }
