@@ -9,4 +9,8 @@ public class Menu {
         this.category = category;
     }
 
+    public double getPrice() {
+        return price;
+    }
+
 }

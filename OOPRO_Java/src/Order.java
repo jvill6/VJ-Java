@@ -7,18 +7,22 @@ public class Order {
     public int dishAmount;
     public int serviceCost;
 
-
-
     //Stuff that gets referenced from other classes
     public Customer customerName;
-    public Menu menuPrice;
+    public Menu itemName;
+    public double menuPrice;
 
-    public Order (Customer customerName, int orderId, int dishAmount, Menu menuPrice, int serviceCost) {
+    public Order (Customer customerName, int orderId, Menu itemName, int dishAmount, double menuPrice, int serviceCost) {
         this.customerName = customerName;
         this.orderId = orderId;
+        this.itemName = itemName;
         this.dishAmount = dishAmount;
         this.menuPrice = menuPrice;
         this.serviceCost = serviceCost;
+    }
+
+    void editOrder(int choice) {
+
     }
 
 }
