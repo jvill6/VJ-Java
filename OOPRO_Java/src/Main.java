@@ -73,6 +73,76 @@ void main() {
 
 
             break;
+
+        case 2:
+            available = 0;
+            System.out.println("\nExisting orders:");
+            for (int i = 0; i < OrderList.length; i++) {
+                if (OrderList[i] != null) {
+                    System.out.println("Slot " + (i + 1) + ": \n");
+                } else {
+                    available++;
+                }
+            }
+            if (available >= OrderList.length) {
+                System.out.println("There are no filled slots");
+            }
+            break;
+
+        case 3:
+            available = 0;
+            System.out.println("\nExisting orders:");
+            for (int i = 0; i < OrderList.length; i++) {
+                if (OrderList[i] != null) {
+                    System.out.println("Slot " + (i + 1) + ": \n");
+                } else {
+                    available++;
+                }
+            }
+            if (available >= OrderList.length) {
+                System.out.println("There are no filled slots");
+            }
+            break;
+
+        case 4:
+            available = 0;
+            System.out.println("\nExisting orders:");
+            for (int i = 0; i < OrderList.length; i++) {
+                if (OrderList[i] != null) {
+                    System.out.println("Slot " + (i + 1));
+                } else {
+                    available++;
+                }
+            }
+
+            choice = Integer.parseInt(IO.readln("""
+                    Select a slot to view:     
+                    """));
+                System.out.println(OrderList[choice].toString());
+
+
+
+            if (available >= OrderList.length) {
+                System.out.println("There are no filled slots");
+            }
+            break;
+
+        case 5:
+            available = 0;
+            System.out.println("\nExisting orders:");
+            for (int i = 0; i < OrderList.length; i++) {
+                if (OrderList[i] != null) {
+                    System.out.println("Slot " + (i + 1) + ": \n");
+                } else {
+                    available++;
+                }
+            }
+            if (available >= OrderList.length) {
+                System.out.println("There are no filled slots");
+            }
+            break;
+
+
     }
     } while (choice != 0);
 }
