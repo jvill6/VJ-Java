@@ -64,12 +64,15 @@ void main() {
 
                 System.out.println("New Customer Created!");
 
+                System.out.println("\nList of Available Items: ");
+                for (int i = 0; i < Menu.length; i++) {
+                    System.out.println(Menu[i].getItemName() + ": " + Menu[i].getPrice() + "PHP");
+                }
 
-
+                System.out.println("Order Creation:");
+                OrderList[choice] = new Details(customer.getName(), ;
 
             }
-
-
 
 
             break;
