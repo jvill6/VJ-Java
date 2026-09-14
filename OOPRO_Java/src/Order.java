@@ -4,22 +4,24 @@
 public class Order {
 
     protected int orderId;
-    public int dishAmount;
-    public int serviceCost;
+    protected int dishAmount;
+    protected double serviceCost;
 
     //Stuff that gets referenced from other classes
     public String customerName;
     public String item;
     public double menuPrice;
 
-    public Order (String customerName, int orderId, String item, int dishAmount, double menuPrice, int serviceCost) {
+    public Order (String customerName, int orderId, String item, int dishAmount, double menuPrice) {
         this.customerName = customerName;
         this.orderId = orderId;
         this.item = item;
         this.dishAmount = dishAmount;
         this.menuPrice = menuPrice;
-        this.serviceCost = serviceCost;
+        this.serviceCost =  (menuPrice * dishAmount) / 10;
     }
+
+
 
     void editOrder(int choice) {
 

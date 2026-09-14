@@ -6,9 +6,9 @@ public class Details extends Order {
     private String eventVenue;
     private int guestCount;
 
-    public Details(String customerName, int orderId, String item, int dishAmount, double menuPrice, int serviceCost,
+    public Details(String customerName, int orderId, String item, int dishAmount, double menuPrice,
                    String eventDate, String eventVenue, int guestCount) {
-        super(customerName, orderId, item, dishAmount, menuPrice, serviceCost);
+        super(customerName, orderId, item, dishAmount, menuPrice);
 
         this.eventDate = eventDate;
         this.eventVenue = eventVenue;
