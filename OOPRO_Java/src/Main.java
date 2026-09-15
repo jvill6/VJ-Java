@@ -10,11 +10,11 @@ void main() {
     //Instantly initialize a preset menu (this could be changed so that a custom menu can be made later on
     //String itemName, double price, String category
     Menu[] Menu = new Menu[5];
-    Menu[0] = new Menu("Salad", 150, "Side");
-    Menu[1] = new Menu("Cupcakes", 120, "Dessert");
-    Menu[2] = new Menu("Fried Chicken", 160, "Main");
-    Menu[3] = new Menu("Lumpia", 80, "Main");
-    Menu[4] = new Menu("Brownies", 120, "Dessert");
+    Menu[0] = new Menu("Salad", 15, "Side");
+    Menu[1] = new Menu("Cupcakes", 20, "Dessert");
+    Menu[2] = new Menu("Fried Chicken", 15, "Main");
+    Menu[3] = new Menu("Lumpia", 7, "Main");
+    Menu[4] = new Menu("Brownies", 12, "Dessert");
 
 
 
@@ -171,7 +171,7 @@ void main() {
                     Select a slot to view:     
                     """));
 
-            System.out.println(OrderList[choice].toString());
+            System.out.println(OrderList[choice-1].toString());
 
             choice++;
             break;
