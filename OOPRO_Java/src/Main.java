@@ -69,7 +69,7 @@ void main() {
 
                 int selectFood = Integer.parseInt(
                         IO.readln("\nEnter the item being ordered: ")
-                );
+                ) - 1 ;
 
                 Customer customer = new Customer(Integer.parseInt(
                         IO.readln("\nEnter an ID number for this customer: ")),
