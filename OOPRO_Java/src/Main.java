@@ -115,10 +115,7 @@ void main() {
             if (available >= OrderList.length) {
                 System.out.println("There are no filled slots");
                 break;
-            }            if (available == 0) {
-            System.out.println("There are no available slots");
-            break;
-        }
+            }
 
             choice = Integer.parseInt(IO.readln("""
                     Select a slot to remove: 
@@ -129,14 +126,15 @@ void main() {
 
             if (OrderList[choice] == null) {
                 System.out.println("That slot is empty!");
+                choice++;
                 break;
             }
 
             OrderList[choice] = null;
             System.out.println("Order Removed");
 
-
-                break;
+            choice++;
+            break;
 
         case 3:
               
