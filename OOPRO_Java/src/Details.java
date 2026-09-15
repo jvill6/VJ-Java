@@ -15,30 +15,28 @@ public class Details extends Order {
         this.guestCount = guestCount;
     }
 
-    public double totalPrice() {
-        return (guestCount * dishAmount * menuPrice) + serviceCost;
-    }
-
     @Override
     public String toString() {
-        return "Order {Name: "  + customerName
-                + ", Order ID: " + orderId
-                + ", Item: " + item
-                + ", # of Guests: " + guestCount
-                + ", # of Servings per Guest: " + dishAmount
-                + ", Total # of Servings: " + (guestCount * dishAmount)
-                + ", Price per Item: " + menuPrice
-                + ", Service Cost: " + serviceCost
-                + ", Total Cost: " + totalPrice()
-                +"}\n";
+        return "\nOrder: { Name: "  + customerName
+                + " }, \n{ Order ID: " + orderId
+                + " }, \n{ Item: " + item
+                + " }, \n{ # of Servings: " + dishAmount
+                + " }, \n{ Total # of Servings: " + (8 * dishAmount)
+                + " }, \n{ Price per Item: " + menuPrice
+                + " }, \n{ Service Cost: " + serviceCost
+                + " }, \n{ Total Cost: " + totalPrice()
+                +" }\n\nDetails: { Event Date: " + eventDate
+                +" }\n{ Event Venue Address: " + eventVenue
+                +" }\n{ # of Guests: " + guestCount + " }";
     }
 
 
 
-    @Override
-    void editOrder(int choice) {
+
+    void editOrder() {
 
     }
+
 
 
 }
