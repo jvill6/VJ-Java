@@ -181,7 +181,8 @@ void main() {
             System.out.println("\nAll orders:");
             for (int i = 0; i < OrderList.length; i++) {
                 if (OrderList[i] != null) {
-                    System.out.println("Slot " + (i + 1) + ": \n");
+                    System.out.println("Slot " + (i + 1) + ": Order ID - " + OrderList[i].orderId);
+                    System.out.println("Item: " + OrderList[i].item);
                 } else {
                     available++;
                 }
@@ -191,6 +192,14 @@ void main() {
                 break;
             }
             break;
+        case 0:
+            if (IO.readln("Exit program? (y/n): ").equalsIgnoreCase("y")) {
+                break;
+            } else {
+                choice++;
+                break;
+            }
+
 
         default:
             System.out.println("Invalid Option");
@@ -200,8 +209,8 @@ void main() {
     } while (choice != 0);
 }
 
-public int searchOrders(int orderId, Order[] orderList) {
-    return 0;
-} public int searchOrders(String itemName, Order[] orderList) {
-    return 0;
+public void searchOrders(int orderId, Order[] orderList) {
+
+} public void searchOrders(String itemName, Order[] orderList) {
+
 }
