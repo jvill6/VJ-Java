@@ -8,13 +8,15 @@ public class Details extends Order {
 
     public Details(String customerName, int orderId, String item, double menuPrice,
                    String eventDate, String eventVenue, int guestCount) {
+
         super(customerName, orderId, item, menuPrice);
 
         this.eventDate = eventDate;
         this.eventVenue = eventVenue;
         this.guestCount = guestCount;
 
-        super.dishAmount = (int) (Math.ceil(guestCount + (guestCount * 0.2)));
+        dishAmount = (int) (Math.ceil(guestCount + (guestCount * 0.2)));
+        serviceCost =  (menuPrice * dishAmount) / 10;
     }
 
     @Override

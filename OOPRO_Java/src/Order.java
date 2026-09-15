@@ -17,7 +17,6 @@ public class Order {
         this.orderId = orderId;
         this.item = item;
         this.menuPrice = menuPrice;
-        this.serviceCost =  (menuPrice * dishAmount) / 10;
     }
 
     public double totalPrice() {
