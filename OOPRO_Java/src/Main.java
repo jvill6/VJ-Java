@@ -10,11 +10,11 @@ void main() {
     //Instantly initialize a preset menu (this could be changed so that a custom menu can be made later on
     //String itemName, double price, String category
     Menu[] Menu = new Menu[5];
-    Menu[0] = new Menu("Salad", 25, "Side");
-    Menu[1] = new Menu("Cupcake", 15, "Dessert");
-    Menu[2] = new Menu("Fried Chicken", 20, "Main");
-    Menu[3] = new Menu("Lumpia", 10, "Main");
-    Menu[4] = new Menu("Brownie", 15, "Dessert");
+    Menu[0] = new Menu("Salad", 150, "Side");
+    Menu[1] = new Menu("Cupcakes", 120, "Dessert");
+    Menu[2] = new Menu("Fried Chicken", 160, "Main");
+    Menu[3] = new Menu("Lumpia", 80, "Main");
+    Menu[4] = new Menu("Brownies", 120, "Dessert");
 
 
 
@@ -27,18 +27,19 @@ void main() {
                 1. Add New Order
                 2. Remove Existing Order
                 3. Edit Existing Order
-                4. View Existing Orders
-                5. Search for an Order
+                4. View Order Details
+                5. Display All Orders
+                6. Search for an Order
                 0. Exit
                 
                 Chose an Option: 
                 """));
 
-        //Switch REMOVED while I build the new classes
+    int available = 0;
     switch(choice) {
         case 1:
             System.out.println("\nCurrently Available Slots: ");
-            int available = 0;
+
             for (int i = 0; i < OrderList.length; i++) {
                 if (OrderList[i] == null) {
                     System.out.println("Slot " + (i + 1) + " is available.");
@@ -53,6 +54,9 @@ void main() {
                     Select a slot to add to: 
                     """));
 
+            choice--;
+
+
             if (OrderList[choice] != null) {
                 System.out.println("That slot is not available!");
             } else {
@@ -64,16 +68,16 @@ void main() {
                 }
 
                 int selectFood = Integer.parseInt(
-                        IO.readln("Enter the item being ordered: ")
+                        IO.readln("\nEnter the item being ordered: ")
                 );
 
                 Customer customer = new Customer(Integer.parseInt(
-                        IO.readln("Enter an ID number for this customer: ")),
+                        IO.readln("\nEnter an ID number for this customer: ")),
                         IO.readln("Enter the customers name: "),
                         IO.readln("Enter the customers phone #: ")
                 );
 
-                System.out.println("New Customer Created!");
+                System.out.println("New Customer Created!\n");
 
 
 
@@ -81,24 +85,26 @@ void main() {
 
                 System.out.println("Order Creation:");
                 OrderList[choice] = new Details(customer.getName(),
-                        Integer.parseInt(IO.readln("Enter an ID for this order")),
+                        Integer.parseInt(IO.readln("Enter an ID for this order: ")),
                         Menu[selectFood].getItemName(),
-                        IO.readln("Enter the quantity of this item: "),
+                        Integer.parseInt(IO.readln("Enter the quantity of this item: ")),
                         Menu[selectFood].getPrice(),
-
-
-
-
-
+                        IO.readln("Enter the Event Date (DD/MM/YYYY): "),
+                        IO.readln("Enter the Venue Address: "),
+                        Integer.parseInt(IO.readln("Enter the # of guests: "))
                         );
 
             }
 
+            System.out.println(OrderList[choice].toString());
+
+            //preventing choice from being 0 if slot 1 was chosen
+            choice++;
 
             break;
 
         case 2:
-            available = 0;
+              
             System.out.println("\nExisting orders:");
             for (int i = 0; i < OrderList.length; i++) {
                 if (OrderList[i] != null) {
@@ -109,11 +115,12 @@ void main() {
             }
             if (available >= OrderList.length) {
                 System.out.println("There are no filled slots");
+                break;
             }
             break;
 
         case 3:
-            available = 0;
+              
             System.out.println("\nExisting orders:");
             for (int i = 0; i < OrderList.length; i++) {
                 if (OrderList[i] != null) {
@@ -128,7 +135,7 @@ void main() {
             break;
 
         case 4:
-            available = 0;
+              
             System.out.println("\nExisting orders:");
             for (int i = 0; i < OrderList.length; i++) {
                 if (OrderList[i] != null) {
@@ -138,21 +145,23 @@ void main() {
                 }
             }
 
+            if (available >= OrderList.length) {
+                System.out.println("There are no filled slots");
+                break;
+            }
+
             choice = Integer.parseInt(IO.readln("""
                     Select a slot to view:     
                     """));
-                System.out.println(OrderList[choice].toString());
 
+            System.out.println(OrderList[choice].toString());
 
-
-            if (available >= OrderList.length) {
-                System.out.println("There are no filled slots");
-            }
+            choice++;
             break;
 
         case 5:
-            available = 0;
-            System.out.println("\nExisting orders:");
+              
+            System.out.println("\nAll orders:");
             for (int i = 0; i < OrderList.length; i++) {
                 if (OrderList[i] != null) {
                     System.out.println("Slot " + (i + 1) + ": \n");
@@ -162,10 +171,20 @@ void main() {
             }
             if (available >= OrderList.length) {
                 System.out.println("There are no filled slots");
+                break;
             }
             break;
+
+        default:
+            System.out.println("Invalid Option");
 
 
     }
     } while (choice != 0);
+}
+
+public int searchOrders(int orderId, Order[] orderList) {
+    return 0;
+} public int searchOrders(String itemName, Order[] orderList) {
+    return 0;
 }
