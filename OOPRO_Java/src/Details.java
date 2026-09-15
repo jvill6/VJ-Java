@@ -13,6 +13,8 @@ public class Details extends Order {
         this.eventDate = eventDate;
         this.eventVenue = eventVenue;
         this.guestCount = guestCount;
+
+        super.dishAmount = (int) (Math.ceil(guestCount + (guestCount * 0.2)));
     }
 
     @Override
@@ -20,8 +22,7 @@ public class Details extends Order {
         return "\nOrder: { Name: "  + customerName
                 + " }, \n{ Order ID: " + orderId
                 + " }, \n{ Item: " + item
-                + " }, \n{ # of Servings: " + dishAmount
-                + " }, \n{ Total # of Servings: " + (8 * dishAmount)
+                + " }, \n{ Total # of Servings: " + (dishAmount)
                 + " }, \n{ Price per Item: " + menuPrice
                 + " }, \n{ Service Cost: " + serviceCost
                 + " }, \n{ Total Cost: " + totalPrice()
