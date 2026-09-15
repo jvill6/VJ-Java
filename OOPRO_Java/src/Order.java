@@ -21,10 +21,7 @@ public class Order {
         this.serviceCost =  (menuPrice * dishAmount) / 10;
     }
 
-
-
-    void editOrder(int choice) {
-
+    public double totalPrice() {
+        return (dishAmount * menuPrice) + serviceCost;
     }
-
 }
