@@ -12,11 +12,10 @@ public class Order {
     public String item;
     public double menuPrice;
 
-    public Order (String customerName, int orderId, String item, int dishAmount, double menuPrice) {
+    public Order (String customerName, int orderId, String item, double menuPrice) {
         this.customerName = customerName;
         this.orderId = orderId;
         this.item = item;
-        this.dishAmount = dishAmount;
         this.menuPrice = menuPrice;
         this.serviceCost =  (menuPrice * dishAmount) / 10;
     }

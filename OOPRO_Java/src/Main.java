@@ -87,7 +87,6 @@ void main() {
                 OrderList[choice] = new Details(customer.getName(),
                         Integer.parseInt(IO.readln("Enter an ID for this order: ")),
                         Menu[selectFood].getItemName(),
-                        Integer.parseInt(IO.readln("Enter the quantity of this item: ")),
                         Menu[selectFood].getPrice(),
                         IO.readln("Enter the Event Date (DD/MM/YYYY): "),
                         IO.readln("Enter the Venue Address: "),
@@ -116,8 +115,28 @@ void main() {
             if (available >= OrderList.length) {
                 System.out.println("There are no filled slots");
                 break;
-            }
+            }            if (available == 0) {
+            System.out.println("There are no available slots");
             break;
+        }
+
+            choice = Integer.parseInt(IO.readln("""
+                    Select a slot to remove: 
+                    """));
+
+            choice--;
+
+
+            if (OrderList[choice] == null) {
+                System.out.println("That slot is empty!");
+                break;
+            }
+
+            OrderList[choice] = null;
+            System.out.println("Order Removed");
+
+
+                break;
 
         case 3:
               
