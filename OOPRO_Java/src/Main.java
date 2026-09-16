@@ -90,7 +90,9 @@ void main() {
                         Menu[selectFood].getPrice(),
                         IO.readln("Enter the Event Date (DD/MM/YYYY): "),
                         IO.readln("Enter the Venue Address: "),
-                        Integer.parseInt(IO.readln("Enter the # of guests: "))
+                        Integer.parseInt(IO.readln("Enter the # of guests: ")),
+                        customer.getCustomerId(),
+                        customer.getPhone()
                         );
 
             }
@@ -103,11 +105,11 @@ void main() {
             break;
 
         case 2:
-              
+
             System.out.println("\nExisting orders:");
             for (int i = 0; i < OrderList.length; i++) {
                 if (OrderList[i] != null) {
-                    System.out.println("Slot " + (i + 1) + ": \n");
+                    System.out.println("Slot " + (i + 1) + ": ");
                 } else {
                     available++;
                 }
@@ -117,9 +119,9 @@ void main() {
                 break;
             }
 
-            choice = Integer.parseInt(IO.readln("""
-                    Select a slot to remove: 
-                    """));
+            choice = Integer.parseInt(IO.readln(
+                    "Select a slot to remove: "
+                    ));
 
             choice--;
 
@@ -137,7 +139,7 @@ void main() {
             break;
 
         case 3:
-              
+
             System.out.println("\nExisting orders:");
             for (int i = 0; i < OrderList.length; i++) {
                 if (OrderList[i] != null) {
@@ -148,11 +150,30 @@ void main() {
             }
             if (available >= OrderList.length) {
                 System.out.println("There are no filled slots");
+                break;
             }
+
+            choice = Integer.parseInt(IO.readln(
+                    "Select a slot to change: "
+            ));
+
+            choice--;
+
+
+            if (OrderList[choice] == null) {
+                System.out.println("That slot is empty!");
+                choice++;
+                break;
+            }
+
+            OrderList[choice] = null;
+            System.out.println("Order Removed");
+
+            choice++;
             break;
 
         case 4:
-              
+
             System.out.println("\nExisting orders:");
             for (int i = 0; i < OrderList.length; i++) {
                 if (OrderList[i] != null) {
@@ -177,7 +198,7 @@ void main() {
             break;
 
         case 5:
-              
+
             System.out.println("\nAll orders:");
             for (int i = 0; i < OrderList.length; i++) {
                 if (OrderList[i] != null) {
@@ -199,6 +220,65 @@ void main() {
                 choice++;
                 break;
             }
+        //test purposes only
+        case 727:
+            System.out.println("WYSI, generating 2 orders in random slots");
+
+            int selectFood = 0;
+            choice = 0;
+
+            for (int i = 0; i <= 4; i++) {
+                selectFood += (int) Math.round(Math.random());
+            }
+
+            Customer customer = new Customer(420, "Pogetora", "5033696061");
+            for (int i = 0; i <= 3; i++) {
+                choice += (int) Math.round(Math.random());
+            }
+            System.out.println(selectFood+ ", " + choice);
+            if (OrderList[choice] == null) {
+                OrderList[choice] = new Details(customer.getName(),
+                        42069,
+                        Menu[selectFood].getItemName(),
+                        Menu[selectFood].getPrice(),
+                        "27/7/27",
+                        "the osu house",
+                        20,
+                        customer.getCustomerId(),
+                        customer.getPhone());
+            } else {
+                System.out.println("Random Creation Failed: Slot not null");
+            }
+
+            selectFood = 0;
+            choice = 0;
+
+            for (int i = 0; i <= 4; i++) {
+                selectFood += (int) Math.round(Math.random());
+            }
+
+            Customer customer2 = new Customer(727, "Poggiezi", "5184103265");
+            for (int i = 0; i <= 3; i++) {
+                choice += (int) Math.round(Math.random());
+            }
+            System.out.println(selectFood+ ", " + choice);
+            if (OrderList[choice] == null) {
+                OrderList[choice] = new Details(customer2.getName(),
+                        6967,
+                        Menu[selectFood].getItemName(),
+                        Menu[selectFood].getPrice(),
+                        "29/8/29",
+                        "Necrofantasia",
+                        15,
+                        customer2.getCustomerId(),
+                        customer2.getPhone());
+            } else {
+                System.out.println("Random Creation Failed: Slot not null");
+            }
+
+            choice = 1;
+            break;
+
 
 
         default:
