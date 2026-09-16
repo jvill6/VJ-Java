@@ -8,9 +8,9 @@ public class Order {
     protected double serviceCost;
 
     //Stuff that gets referenced from other classes
-    public String customerName;
-    public String item;
-    public double menuPrice;
+    protected String customerName;
+    protected String item;
+    protected double menuPrice;
 
     public Order (String customerName, int orderId, String item, double menuPrice) {
         this.customerName = customerName;
