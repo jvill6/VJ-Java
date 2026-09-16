@@ -12,4 +12,13 @@ public class Customer {
     public String getName() {
         return this.name;
     }
+
+    public int getCustomerId() {
+        return customerId;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
 }
+
