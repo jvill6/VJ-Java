@@ -26,10 +26,9 @@ void main() {
                 \nCALCUCATERING CATERING SYSTEM:
                 1. Add New Order
                 2. Remove Existing Order
-                3. Edit Existing Order
+                3. Search for an Order
                 4. View Order Details
                 5. Display All Orders
-                6. Search for an Order
                 0. Exit
                 
                 Chose an Option: 
@@ -139,37 +138,24 @@ void main() {
             break;
 
         case 3:
+            System.out.println("""
+                    Search Orders:
+                    1. Search by Order ID
+                    2. Search by Item Ordered
+                    """);
+            int searchOption = Integer.parseInt(IO.readln("Enter search option: "));
 
-            System.out.println("\nExisting orders:");
-            for (int i = 0; i < OrderList.length; i++) {
-                if (OrderList[i] != null) {
-                    System.out.println("Slot " + (i + 1) + ": \n");
-                } else {
-                    available++;
-                }
-            }
-            if (available >= OrderList.length) {
-                System.out.println("There are no filled slots");
+            if (searchOption == 1) {
+                searchOrders(Integer.parseInt(IO.readln("Enter the Order ID: ")), OrderList);
+            } else if (searchOption == 2) {
+                searchOrders(IO.readln("Enter the item name: "), OrderList);
+            } else {
+                System.out.println("Invalid Option.\n");
                 break;
             }
 
-            choice = Integer.parseInt(IO.readln(
-                    "Select a slot to change: "
-            ));
-
-            choice--;
 
 
-            if (OrderList[choice] == null) {
-                System.out.println("That slot is empty!");
-                choice++;
-                break;
-            }
-
-            OrderList[choice] = null;
-            System.out.println("Order Removed");
-
-            choice++;
             break;
 
         case 4:
