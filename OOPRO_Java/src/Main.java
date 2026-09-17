@@ -26,7 +26,7 @@ void main() {
                 \nCALCUCATERING CATERING SYSTEM:
                 1. Add New Order
                 2. Remove Existing Order
-                3. Search for an Order
+                3. Find an Order
                 4. View Order Details
                 5. Display All Orders
                 0. Exit
@@ -146,9 +146,9 @@ void main() {
             int searchOption = Integer.parseInt(IO.readln("Enter search option: "));
 
             if (searchOption == 1) {
-                searchOrders(Integer.parseInt(IO.readln("Enter the Order ID: ")), OrderList);
+                filterOrders(Integer.parseInt(IO.readln("Enter the Order ID: ")), OrderList);
             } else if (searchOption == 2) {
-                searchOrders(IO.readln("Enter the item name: "), OrderList);
+                filterOrders(IO.readln("Enter the item name: "), OrderList);
             } else {
                 System.out.println("Invalid Option.\n");
                 break;
@@ -272,11 +272,43 @@ void main() {
 
 
     }
+
     } while (choice != 0);
 }
 
-public void searchOrders(int orderId, Order[] orderList) {
+public void filterOrders(int orderId, Order[] orderList) {
 
-} public void searchOrders(String itemName, Order[] orderList) {
+    boolean found = false;
+    System.out.println();
+    for (int i = 0; i < orderList.length; i++) {
+        if (orderList[i] == null){
+            //ignore orderlist because it's null, program will crash if it tries to read a null slot
+        } else if (orderList[i].orderId == orderId ){
+            System.out.println("Slot " + (i + 1) + " matches OrderID: " + orderId);
+            found = true;
+        }
+    }
+    if (!found) {
+        System.out.println("\nThere were no matching orders");
+    }
 
+
+
+
+} public void filterOrders(String itemName, Order[] orderList) {
+
+    boolean found = false;
+    System.out.println();
+    for (int i = 0; i < orderList.length; i++) {
+        if (orderList[i] == null){
+            //same as other method
+        } else if (orderList[i].item.equalsIgnoreCase(itemName) ){
+            System.out.println("Slot " + (i + 1) + " matches item name: " + itemName);
+            found = true;
+        }
+
+    }
+    if (!found) {
+        System.out.println("\nThere were no matching orders");
+    }
 }
