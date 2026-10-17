@@ -1,7 +1,7 @@
 public class Customer {
     private final int customerId;
     private final String name;
-    private String phone;
+    private final String phone;
 
     Customer (int customerId, String name, String phone) {
         this.customerId = customerId;

@@ -2,13 +2,13 @@
 //This class contains the information relating to the EVENT where the service is being held
 public class Details extends Order {
 
-    private String eventDate;
-    private String eventVenue;
-    private int guestCount;
+    private final String eventDate;
+    private final String eventVenue;
+    private final int guestCount;
 
     //Referenced
-    private int customerId;
-    private String customerPhone;
+    private final int customerId;
+    private final String customerPhone;
 
     public Details(String customerName, int orderId, String item, double menuPrice,
                    String eventDate, String eventVenue, int guestCount, int customerId, String customerPhone) {
