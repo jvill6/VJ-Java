@@ -1,16 +1,35 @@
 public class TestAnimals {
     void main(String[] args) {
-        Animal[] animals = {
-                new Fish(),
-                new Cat("Fluffy"),
-                new Fish(),
-                new Spider(),
-                new Cat("Whiskers")
-        };
+        Fish d = new Fish();
+        Cat c = new Cat("Fluffy");
+        Animal a = new Fish();
+        Animal e = new Spider();
+        Pet p = new Cat("Whiskers");
 
-        for (Animal count : animals) {
+        d.walk();
+        d.eat();
+        System.out.println(d.getName());
+        d.setName("Fish 1");
+        d.play();
 
-        }
+        d.walk();
+        d.eat();
+        System.out.println(d.getName());
+        d.setName("Fish 1");
+        d.play();
 
-}
+        a.walk();
+        a.eat();
+
+        e.eat();
+
+        System.out.println(p.getName());
+        p.setName("Cat 2");
+
+
+
+
+
+
+    }
 }

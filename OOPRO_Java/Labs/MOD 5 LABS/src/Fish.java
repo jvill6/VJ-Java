@@ -21,9 +21,11 @@ public class Fish extends Animal implements Pet {
 
     public void setName(String name) {
         this.name = name;
+        System.out.println("Name set to " + this.name);
     }
 
+
     public void play() {
-        System.out.println("The cat plays");
+        System.out.println("The fish plays");
     }
 }
