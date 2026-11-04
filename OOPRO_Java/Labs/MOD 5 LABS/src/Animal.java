@@ -5,7 +5,7 @@ public abstract class Animal {
         legs = 0;
     }
 
-    abstract void eat();
+    abstract void eat() throws InvalidActionException;
 
     void walk() {
         System.out.println("The animal walks on " + legs + " legs.");

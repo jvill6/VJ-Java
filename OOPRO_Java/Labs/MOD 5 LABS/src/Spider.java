@@ -3,8 +3,15 @@ public class Spider extends Animal {
         legs = 8;
     }
 
-    void eat() {
-        System.out.println("The Spider has eaten.");
+    void eat() throws InvalidActionException {
+
+        int foodValue = (int) Math.ceil(Math.random()*3);
+
+        if (foodValue < 2) {
+            throw new InvalidActionException("The Value of this food was too low for the spider.");
+        } else {
+            System.out.println("The Spider ate.");
+        }
     }
 
 }

@@ -6,8 +6,8 @@ public class Cat extends Animal implements Pet{
         legs = 4;
     }
 
-    Cat() {
-        this("");
+    Cat() throws InvalidActionException{
+        throw new InvalidActionException("Cat name cannot be empty!");
     }
 
     public String getName() {
