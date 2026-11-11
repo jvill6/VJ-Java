@@ -1,4 +1,3 @@
-
 //This class contains the information relating to the EVENT where the service is being held
 public class Details extends Order {
 

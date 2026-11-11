@@ -1,6 +1,8 @@
+import java.util.Scanner;
+
+
+
 void main() {
-
-
     /* I forgot there really isn't a way to
     have a dynamic array in Java (at least not without some complications)
     so for now, this is locked to 4 slots
@@ -16,23 +18,11 @@ void main() {
     Menu[3] = new Menu("Lumpia", 7, "Main");
     Menu[4] = new Menu("Brownies", 12, "Dessert");
 
-
-
     int choice;
 
     do {
         //This is prone to breaking from a blank input, will be fixed in a future change (nvm lmao)
-        choice = Integer.parseInt(IO.readln("""
-                \nCALCUCATERING CATERING SYSTEM:
-                1. Add New Order
-                2. Remove Existing Order
-                3. Find an Order
-                4. View Order Details
-                5. Display All Orders
-                0. Exit
-                
-                Chose an Option: 
-                """));
+        choice =
 
     int available = 0;
     switch(choice) {
@@ -96,7 +86,7 @@ void main() {
 
             }
 
-            System.out.println(OrderList[choice].toString());
+            System.out.println(OrderList[choice].formatDetails());
 
             //preventing choice from being 0 if slot 1 was chosen
             choice++;
@@ -178,7 +168,7 @@ void main() {
                     Select a slot to view:     
                     """));
 
-            System.out.println(OrderList[choice-1].toString());
+            System.out.println(OrderList[choice-1].formatDetails());
 
             choice++;
             break;
@@ -213,7 +203,7 @@ void main() {
             int selectFood = 0;
             choice = 0;
 
-            for (int i = 0; i <= 4; i++) {
+            for (int i = 0; i <= 3; i++) {
                 selectFood += (int) Math.round(Math.random());
             }
 
@@ -239,7 +229,7 @@ void main() {
             selectFood = 0;
             choice = 0;
 
-            for (int i = 0; i <= 4; i++) {
+            for (int i = 0; i <= 3; i++) {
                 selectFood += (int) Math.round(Math.random());
             }
 
@@ -276,6 +266,10 @@ void main() {
     } while (choice != 0);
 }
 
+//Okay i did the declarations kinda backwards but its fiiineee(???)
+
+final Scanner inputScanner = new Scanner(System.in);
+
 public void filterOrders(int orderId, Order[] orderList) {
 
     boolean found = false;
@@ -310,5 +304,13 @@ public void filterOrders(int orderId, Order[] orderList) {
     }
     if (!found) {
         System.out.println("\nThere were no matching orders");
+    }
+}
+
+int readChoice(String prompt) {
+    while (true) {
+        System.out.print(prompt);
+        String line = inputScanner.nextLine().trim();
+
     }
 }
