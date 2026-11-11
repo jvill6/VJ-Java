@@ -178,8 +178,8 @@ void main() {
             System.out.println("\nAll orders:");
             for (int i = 0; i < OrderList.length; i++) {
                 if (OrderList[i] != null) {
-                    System.out.println("Slot " + (i + 1) + ": Order ID - " + OrderList[i].orderId);
-                    System.out.println("Item: " + OrderList[i].item);
+                    System.out.println("Slot " + (i + 1) + ": Order ID - " + OrderList[i].getOrderId());
+                    System.out.println("Item: " + OrderList[i].getItem());
                 } else {
                     available++;
                 }
@@ -277,7 +277,7 @@ public void filterOrders(int orderId, Order[] orderList) {
     for (int i = 0; i < orderList.length; i++) {
         if (orderList[i] == null){
             //ignore orderlist because it's null, program will crash if it tries to read a null slot
-        } else if (orderList[i].orderId == orderId ){
+        } else if (orderList[i].getOrderId() == orderId ){
             System.out.println("Slot " + (i + 1) + " matches OrderID: " + orderId);
             found = true;
         }
@@ -296,7 +296,7 @@ public void filterOrders(int orderId, Order[] orderList) {
     for (int i = 0; i < orderList.length; i++) {
         if (orderList[i] == null){
             //same as other method
-        } else if (orderList[i].item.equalsIgnoreCase(itemName) ){
+        } else if (orderList[i].getItem().equalsIgnoreCase(itemName) ){
             System.out.println("Slot " + (i + 1) + " matches item name: " + itemName);
             found = true;
         }
