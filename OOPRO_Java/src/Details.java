@@ -26,8 +26,9 @@ public class Details extends Order {
         serviceCost =  (menuPrice * dishAmount) / 10;
     }
 
+    //bruh
     @Override
-    public String toString() {
+    public String formatDetails() {
         return "\nOrder: { Order ID: " + orderId
                 + " }, \n{ Item: " + item
                 + " }, \n{ Total # of Servings: " + (dishAmount)
