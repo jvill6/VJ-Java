@@ -21,20 +21,21 @@ public class Details extends Order {
         this.customerPhone = customerPhone;
         this.customerId = customerId;
 
-        dishAmount = (int) (Math.ceil(guestCount + (guestCount * 0.2)));
-        serviceCost =  (menuPrice * dishAmount) / 10;
+        //aur naur
+        setDishAmount((int) (Math.ceil(guestCount + (guestCount * 0.2))));
+        setServiceCost((menuPrice * (getDishAmount())) / 10);
     }
 
     //bruh
     @Override
     public String formatDetails() {
-        return "\nOrder: { Order ID: " + orderId
-                + " }, \n{ Item: " + item
-                + " }, \n{ Total # of Servings: " + (dishAmount)
-                + " }, \n{ Price per Item: " + menuPrice
-                + " }, \n{ Service Cost: " + serviceCost
+        return "\nOrder: { Order ID: " + getOrderId()
+                + " }, \n{ Item: " + getItem()
+                + " }, \n{ Total # of Servings: " + getDishAmount()
+                + " }, \n{ Price per Item: " + getMenuPrice()
+                + " }, \n{ Service Cost: " + getServiceCost()
                 + " }, \n{ Total Cost: " + totalPrice()
-                +" }\n\nDetails: { Customer Name: " + customerName
+                +" }\n\nDetails: { Customer Name: " + getCustomerName()
                 +" }\n{ Customer Phone #: " + customerPhone
                 +" }\n{ Customer ID # : " + customerId
                 +" }\n{ Event Date: " + eventDate
