@@ -22,7 +22,18 @@ void main() {
 
     do {
         //This is prone to breaking from a blank input, will be fixed in a future change (nvm lmao)
-        choice =
+        choice = readChoice("""
+                \nCALCUCATERING CATERING SYSTEM:
+                1. Add New Order
+                2. Remove Existing Order
+                3. Edit Existing Order
+                4. View Order Details
+                5. Display All Orders
+                6. Search for an Order
+                0. Exit
+                
+                Chose an Option: 
+                """);
 
     int available = 0;
     switch(choice) {
@@ -39,9 +50,9 @@ void main() {
                 System.out.println("There are no available slots");
                 break;
             }
-            choice = Integer.parseInt(IO.readln("""
+            choice = readChoice("""
                     Select a slot to add to: 
-                    """));
+                    """);
 
             choice--;
 
@@ -56,12 +67,11 @@ void main() {
                     System.out.println((i+1)+ ": " +Menu[i].getItemName() + ": " + Menu[i].getPrice() + "PHP");
                 }
 
-                int selectFood = Integer.parseInt(
-                        IO.readln("\nEnter the item being ordered: ")
-                ) - 1 ;
+                int selectFood = readChoice("\nEnter the item being ordered: "
+                ) - 1;
 
-                Customer customer = new Customer(Integer.parseInt(
-                        IO.readln("\nEnter an ID number for this customer: ")),
+                Customer customer = new Customer(
+                        readChoice("\nEnter an ID number for this customer: "),
                         IO.readln("Enter the customers name: "),
                         IO.readln("Enter the customers phone #: ")
                 );
@@ -74,12 +84,12 @@ void main() {
 
                 System.out.println("Order Creation:");
                 OrderList[choice] = new Details(customer.getName(),
-                        Integer.parseInt(IO.readln("Enter an ID for this order: ")),
+                        readChoice("Enter an ID for this order: "),
                         Menu[selectFood].getItemName(),
                         Menu[selectFood].getPrice(),
                         IO.readln("Enter the Event Date (DD/MM/YYYY): "),
                         IO.readln("Enter the Venue Address: "),
-                        Integer.parseInt(IO.readln("Enter the # of guests: ")),
+                        readChoice("Enter the # of guests: "),
                         customer.getCustomerId(),
                         customer.getPhone()
                         );
@@ -108,9 +118,9 @@ void main() {
                 break;
             }
 
-            choice = Integer.parseInt(IO.readln(
+            choice = readChoice(
                     "Select a slot to remove: "
-                    ));
+                    );
 
             choice--;
 
@@ -133,10 +143,10 @@ void main() {
                     1. Search by Order ID
                     2. Search by Item Ordered
                     """);
-            int searchOption = Integer.parseInt(IO.readln("Enter search option: "));
+            int searchOption = readChoice("Enter search option: ");
 
             if (searchOption == 1) {
-                filterOrders(Integer.parseInt(IO.readln("Enter the Order ID: ")), OrderList);
+                filterOrders(readChoice("Enter the Order ID: "), OrderList);
             } else if (searchOption == 2) {
                 filterOrders(IO.readln("Enter the item name: "), OrderList);
             } else {
@@ -164,9 +174,9 @@ void main() {
                 break;
             }
 
-            choice = Integer.parseInt(IO.readln("""
+            choice = readChoice("""
                     Select a slot to view:     
-                    """));
+                    """);
 
             System.out.println(OrderList[choice-1].formatDetails());
 
@@ -311,6 +321,12 @@ int readChoice(String prompt) {
     while (true) {
         System.out.print(prompt);
         String line = inputScanner.nextLine().trim();
+
+        try {
+            return Integer.parseInt(line);
+        } catch (NumberFormatException e){
+            System.out.println("The selection must be a whole number!");
+        }
 
     }
 }
