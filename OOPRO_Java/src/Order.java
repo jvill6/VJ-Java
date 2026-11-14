@@ -10,6 +10,19 @@ public abstract class Order implements Billable {
     private double menuPrice;
 
     public Order(String customerName, int orderId, String item, double menuPrice) {
+        if (customerName == null || customerName.isBlank()) {
+            throw new InvalidOrderArgumentException("Customer name must not be blank.");
+        }
+        if (orderId <= 0) {
+            throw new InvalidOrderArgumentException("Order ID must be positive.");
+        }
+        if (item == null || item.isBlank()) {
+            throw new InvalidOrderArgumentException("Item name must not be blank.");
+        }
+        if (!Double.isFinite(menuPrice) || menuPrice < 0) {
+            throw new InvalidOrderArgumentException("Menu price must be finite and non-negative.");
+        }
+        
         this.customerName = customerName;
         this.orderId = orderId;
         this.item = item;

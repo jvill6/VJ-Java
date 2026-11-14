@@ -14,6 +14,10 @@ public class Details extends Order {
 
         super(customerName, orderId, item, menuPrice);
 
+        if (guestCount <= 0) {
+            throw new InvalidOrderArgumentException("Guest count must be greater than zero.");
+        }
+
         this.eventDate = eventDate;
         this.eventVenue = eventVenue;
         this.guestCount = guestCount;
