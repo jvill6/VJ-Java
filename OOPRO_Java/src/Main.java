@@ -27,7 +27,7 @@ void main() {
                 \nCALCUCATERING CATERING SYSTEM:
                 1. Add New Order
                 2. Remove Existing Order
-                3. Edit Existing Order
+                3. View Menu (Available Items)
                 4. View Order Details
                 5. Display All Orders
                 6. Search for an Order
@@ -326,4 +326,44 @@ int readChoice(String prompt) {
         }
 
     }
+}
+
+Menu[] appendMenu(Menu[] currentMenu) {
+    int newLength = currentMenu.length + 1;
+    Menu[] newMenu = new Menu[newLength];
+
+    System.out.println("\nCurrent Menu: ");
+    for (int i = 0; i < currentMenu.length; i++) {
+        System.out.println((i + 1) + ": " + currentMenu[i].getItemName() + ": " + currentMenu[i].getPrice() + "PHP");
+    }
+
+    //I did not know this was a thing WHAAAT??
+    System.arraycopy(currentMenu, 0, newMenu, 0, currentMenu.length);
+    System.out.println("New Item Creation: ");
+    newMenu[newLength - 1] = new Menu(IO.readln("Enter the item name: "), readChoice("Enter the price: PHP "), IO.readln("Enter the category of this item"));
+    return newMenu;
+}
+
+Menu[] popMenu(Menu[] currentMenu) {
+    int newLength = currentMenu.length - 1;
+    Menu[] newMenu = new Menu[newLength];
+
+    System.out.println("\nCurrent Menu: ");
+    for (int i = 0; i < currentMenu.length; i++) {
+        System.out.println((i + 1) + ": " + currentMenu[i].getItemName() + ": " + currentMenu[i].getPrice() + "PHP");
+    }
+
+    int itemRemove = readChoice("Enter which item number to remove: ") - 1;
+
+    currentMenu[itemRemove] = null;
+
+    for (int i = 0; i < currentMenu.length; i++) {
+        if (currentMenu[i] == null) {
+
+        }
+    }
+
+
+
+    return newMenu;
 }
