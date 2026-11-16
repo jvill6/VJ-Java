@@ -107,10 +107,17 @@ void main() {
 
                 choice = readChoice("""
                         Select an order to view:     
-                        """);
+                        """) - 1;
+
+                try  {
+                    OrderList[choice].getOrderId();
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println( Colors.RED +"That order doesn't exist! Aborting.." + Colors.RESET);
+                    break;
+                }
 
                 //Compiler says that it may try to point to a null object, but that shouldn't be possible because it'll break this case if there are no orders(?)
-                System.out.println(OrderList[choice - 1].formatDetails());
+                System.out.println(OrderList[choice].formatDetails());
 
                 choice++;
                 break;
@@ -232,7 +239,7 @@ Menu[] popMenu(Menu[] currentMenu) {
     try  {
         currentMenu[itemRemove].getItemName();
     } catch (ArrayIndexOutOfBoundsException e) {
-        System.out.println("That menu item doesn't exist! Aborting..");
+        System.out.println(Colors.RED + "That menu item doesn't exist! Aborting.." + Colors.RESET);
         return currentMenu;
     }
 
@@ -289,12 +296,23 @@ Order[] removeOrder(Order[] currentOrders) {
         }
     }
     if (orderCount == 0) {
-        System.out.println("No orders exist right now.");
+        System.out.println(Colors.YELLOW + "No orders exist right now." + Colors.RESET);
         return currentOrders;
     }
 
     int itemRemove = readChoice("Enter which order # to remove: ") - 1;
+
+    try  {
+        currentOrders[itemRemove].getOrderId();
+    } catch (ArrayIndexOutOfBoundsException e) {
+        System.out.println( Colors.RED +"That order doesn't exist! Aborting.." + Colors.RESET);
+        return currentOrders;
+    }
+
+
     Order[] newOrders = new Order[currentOrders.length - 1];
+
+
 
     int j = 0;
     for (int i = 0; i < currentOrders.length; i++) {
@@ -304,10 +322,6 @@ Order[] removeOrder(Order[] currentOrders) {
             newOrders[j] = currentOrders[i];
             j++;
         }
-    }
-
-    if (j == 0) {
-        System.out.println("That order doesn't exist!");
     }
     return newOrders;
 }
