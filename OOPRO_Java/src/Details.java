@@ -9,10 +9,10 @@ public class Details extends Order {
     private final int customerId;
     private final String customerPhone;
 
-    public Details(String customerName, int orderId, String item, double menuPrice,
+    public Details(String customerName, int orderId, String[] items, double[] menuPrices, int[] dishAmounts,
                    String eventDate, String eventVenue, int guestCount, int customerId, String customerPhone) {
 
-        super(customerName, orderId, item, menuPrice);
+        super(customerName, orderId, items, menuPrices, dishAmounts);
 
         if (guestCount <= 0) {
             throw new InvalidOrderArgumentException("Guest count must be greater than zero.");
@@ -25,25 +25,25 @@ public class Details extends Order {
         this.customerPhone = customerPhone;
         this.customerId = customerId;
 
-        //aur naur
-        setDishAmount((int) (Math.ceil(guestCount + (guestCount * 0.2))));
-        setServiceCost((menuPrice * (getDishAmount())) / 10);
     }
 
     //bruh
     @Override
     public String formatDetails() {
-        return "\nOrder: { Order ID: " + getOrderId()
-                + " }, \n{ Item: " + getItem()
-                + " }, \n{ Total # of Servings: " + getDishAmount()
-                + " }, \n{ Price per Item: " + getMenuPrice()
-                + " }, \n{ Service Cost: " + getServiceCost()
-                + " }, \n{ Total Cost: " + totalPrice()
-                +" }\n\nDetails: { Customer Name: " + getCustomerName()
-                +" }\n{ Customer Phone #: " + customerPhone
-                +" }\n{ Customer ID # : " + customerId
-                +" }\n{ Event Date: " + eventDate
-                +" }\n{ Event Venue: " + eventVenue
-                +" }\n{ # of Guests: " + guestCount + " }";
+        StringBuilder details = new StringBuilder("\nOrder: { Order ID: ").append(getOrderId()).append(" }");
+        for (int i = 0; i < getItemCount(); i++) {
+            details.append("\n{ Item: ").append(getItem(i))
+                    .append(", Quantity: ").append(getDishAmount(i))
+                    .append(", Price per Item: ").append(getMenuPrice(i))
+                    .append(", Line Total: ").append(getLineTotal(i)).append(" }");
+        }
+        return details.append("\n{ Service Cost: ").append(getServiceCost())
+                .append(" }, \n{ Total Cost: ").append(totalPrice())
+                .append(" }\n\nDetails: { Customer Name: ").append(getCustomerName())
+                .append(" }\n{ Customer Phone #: ").append(customerPhone)
+                .append(" }\n{ Customer ID # : ").append(customerId)
+                .append(" }\n{ Event Date: ").append(eventDate)
+                .append(" }\n{ Event Venue: ").append(eventVenue)
+                .append(" }\n{ # of Guests: ").append(guestCount).toString();
     }
 }

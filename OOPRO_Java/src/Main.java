@@ -34,7 +34,7 @@ void main() {
                 5. View an Order's Details
                 6. Search for an Order
                 0. Exit
-                
+
                 Chose an Option: 
                 """);
 
@@ -46,21 +46,45 @@ void main() {
                 for (int i = 0; i < Menu.length; i++) {
                     System.out.println((i + 1) + ": " + Menu[i].getItemName() + ": " + Menu[i].getPrice() + "PHP");
                 }
-                int selectFood = readChoice("\nEnter the item being ordered: "
-                ) - 1;
-
-                try  {
-                    Menu[selectFood].getItemName();
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println("That menu item doesn't exist! Aborting..");
+                if (Menu.length == 0) {
+                    System.out.println("There are no menu items available to order.");
                     break;
+                }
+                int itemCount = readPositiveChoice("\nHow many different menu items are being ordered? ");
+                while (itemCount > Menu.length) {
+                    System.out.println("You can order at most " + Menu.length + " different menu items.");
+                    itemCount = readPositiveChoice("How many different menu items are being ordered? ");
+                }
+
+                String[] orderedItems = new String[itemCount];
+                double[] itemPrices = new double[itemCount];
+                int[] quantities = new int[itemCount];
+                boolean[] selectedItems = new boolean[Menu.length];
+
+                for (int i = 0; i < itemCount; i++) {
+                    int selectedIndex;
+                    while (true) {
+                        selectedIndex = readChoice("\nEnter menu item number " + (i + 1) + ": ") - 1;
+                        if (selectedIndex < 0 || selectedIndex >= Menu.length) {
+                            System.out.println("That menu item doesn't exist. Please choose a listed item.");
+                        } else if (selectedItems[selectedIndex]) {
+                            System.out.println("That item has already been selected. Choose a different item.");
+                        } else {
+                            break;
+                        }
+                    }
+
+                    selectedItems[selectedIndex] = true;
+                    orderedItems[i] = Menu[selectedIndex].getItemName();
+                    itemPrices[i] = Menu[selectedIndex].getPrice();
+                    quantities[i] = readPositiveChoice("Enter the quantity for " + orderedItems[i] + ": ");
                 }
                 Customer customer = new Customer(
                         readChoice("\nEnter an ID number for this customer: "),
                         IO.readln("Enter the customers name: "),
                         IO.readln("Enter the customers phone #: ")
                 );
-                OrderList = addOrder(OrderList, customer, selectFood, Menu);
+                OrderList = addOrder(OrderList, customer, orderedItems, itemPrices, quantities);
                 System.out.println(OrderList[OrderList.length - 1].formatDetails());
                 break;
 
@@ -146,7 +170,6 @@ void main() {
                     choice++;
                     break;
                 }
-                //test purposes only
 
 
             default:
@@ -188,7 +211,7 @@ public void filterOrders(String itemName, Order[] orderList) {
     for (int i = 0; i < orderList.length; i++) {
         if (orderList[i] == null) {
             //same as other method
-        } else if (orderList[i].getItem().equalsIgnoreCase(itemName)) {
+        } else if (orderList[i].containsItem(itemName)) {
             System.out.println("Order # " + (i + 1) + " matches item name: " + itemName);
             found = true;
         }
@@ -211,6 +234,15 @@ int readChoice(String prompt) {
         }
 
     }
+}
+
+int readPositiveChoice(String prompt) {
+    int choice = readChoice(prompt);
+    while (choice <= 0) {
+        System.out.println("Please enter a number greater than zero.");
+        choice = readChoice(prompt);
+    }
+    return choice;
 }
 
 Menu[] appendMenu(Menu[] currentMenu) {
@@ -265,7 +297,7 @@ Menu[] popMenu(Menu[] currentMenu) {
     return newMenu;
 }
 
-Order[] addOrder(Order[] currentOrders, Customer customer, int selectFood, Menu[] Menu) {
+Order[] addOrder(Order[] currentOrders, Customer customer, String[] items, double[] prices, int[] quantities) {
 
     Order[] newOrders = new Order[currentOrders.length + 1];
 
@@ -273,8 +305,9 @@ Order[] addOrder(Order[] currentOrders, Customer customer, int selectFood, Menu[
     System.out.println("\nNew Item Creation: ");
     newOrders[currentOrders.length] = new Details(customer.getName(),
             readChoice("Enter an ID for this order: "),
-            Menu[selectFood].getItemName(),
-            Menu[selectFood].getPrice(),
+            items,
+            prices,
+            quantities,
             IO.readln("Enter the Event Date (DD/MM/YYYY): "),
             IO.readln("Enter the Venue Address: "),
             readChoice("Enter the # of guests: "),
@@ -325,8 +358,6 @@ Order[] removeOrder(Order[] currentOrders) {
     }
     return newOrders;
 }
-
-
 
 
 
