@@ -6,7 +6,7 @@ void main() {
     have a dynamic array in Java (at least not without some complications)
     so for now, this is locked to 4 slots
      */
-    Order[] OrderList = new Order[4];
+    Order[] OrderList = new Order[1];
 
     //Instantly initialize a preset menu (this could be changed so that a custom menu can be made later on
     //String itemName, double price, String category
@@ -27,9 +27,9 @@ void main() {
                 \nCALCUCATERING CATERING SYSTEM:
                 1. Add New Order
                 2. Remove Existing Order
-                3. View Menu (Available Items)
-                4. View Order Details
-                5. Display All Orders
+                3. Edit Menu
+                4. View Menu
+                5. View an Order's Details
                 6. Search for an Order
                 0. Exit
                 
@@ -40,60 +40,34 @@ void main() {
         switch (choice) {
             case 1:
                 System.out.println("\nCurrently Available Slots: ");
-
-                for (int i = 0; i < OrderList.length; i++) {
-                    if (OrderList[i] == null) {
-                        System.out.println(Colors.GREEN + "Slot " + (i + 1) + " is available." + Colors.RESET);
-                        available++;
-                    }
-                }
-                if (available == 0) {
-                    System.out.println(Colors.YELLOW + "There are no available slots" + Colors.RESET);
-                    break;
-                }
-                choice = readChoice("""
-                        Select a slot to add to: 
-                        """);
-
-                choice--;
-
-
-                if (OrderList[choice] != null) {
-                    System.out.println(Colors.RED + "That slot is not available!" + Colors.RESET);
-                } else {
-
-
-                    System.out.println("\nList of Available Items: ");
-                    for (int i = 0; i < Menu.length; i++) {
-                        System.out.println((i + 1) + ": " + Menu[i].getItemName() + ": " + Menu[i].getPrice() + "PHP");
-                    }
-
-                    int selectFood = readChoice("\nEnter the item being ordered: "
-                    ) - 1;
-
-                    Customer customer = new Customer(
-                            readChoice("\nEnter an ID number for this customer: "),
-                            IO.readln("Enter the customers name: "),
-                            IO.readln("Enter the customers phone #: ")
-                    );
-
-                    System.out.println(Colors.GREEN + "New Customer Created!\n" + Colors.RESET);
-
-
-                    System.out.println("Order Creation:");
-                    OrderList[choice] = new Details(customer.getName(),
-                            readChoice("Enter an ID for this order: "),
-                            Menu[selectFood].getItemName(),
-                            Menu[selectFood].getPrice(),
-                            IO.readln("Enter the Event Date (DD/MM/YYYY): "),
-                            IO.readln("Enter the Venue Address: "),
-                            readChoice("Enter the # of guests: "),
-                            customer.getCustomerId(),
-                            customer.getPhone()
-                    );
-
+                System.out.println("\nList of Available Items: ");
+                for (int i = 0; i < Menu.length; i++) {
+                    System.out.println((i + 1) + ": " + Menu[i].getItemName() + ": " + Menu[i].getPrice() + "PHP");
                 }
 
+                int selectFood = readChoice("\nEnter the item being ordered: "
+                ) - 1;
+
+                Customer customer = new Customer(
+                        readChoice("\nEnter an ID number for this customer: "),
+                        IO.readln("Enter the customers name: "),
+                        IO.readln("Enter the customers phone #: ")
+                );
+
+                System.out.println(Colors.GREEN + "New Customer Created!\n" + Colors.RESET);
+
+
+                System.out.println("Order Creation:");
+                OrderList[choice] = new Details(customer.getName(),
+                        readChoice("Enter an ID for this order: "),
+                        Menu[selectFood].getItemName(),
+                        Menu[selectFood].getPrice(),
+                        IO.readln("Enter the Event Date (DD/MM/YYYY): "),
+                        IO.readln("Enter the Venue Address: "),
+                        readChoice("Enter the # of guests: "),
+                        customer.getCustomerId(),
+                        customer.getPhone()
+                );
                 System.out.println(OrderList[choice].formatDetails());
 
                 //preventing choice from being 0 if slot 1 was chosen
@@ -135,10 +109,29 @@ void main() {
                 choice++;
                 break;
             case 3:
-                System.out.println(Colors.YELLOW + "This feature is not implemented yet" + Colors.RESET);
+                switch(readChoice("""
+                        Edit Menu Selected: Select Option -
+                        1. Add a new Item
+                        2. Remove an Item
+                        #. Cancel
+                        """)) {
+                    case 1:
+                        Menu = appendMenu(Menu);
+                        break;
+                    case 2:
+                        Menu = popMenu(Menu);
+                        break;
+                    default:
+                        System.out.println("Operation Cancelled");
+                }
                 break;
             case 4:
-
+                System.out.println("\nCurrent Menu: ");
+                for (int i = 0; i < Menu.length; i++) {
+                    System.out.println((i + 1) + ": " + Menu[i].getItemName() + ": " + Menu[i].getPrice() + "PHP");
+                }
+                break;
+            case 5:
                 System.out.println("\nExisting orders:");
                 for (int i = 0; i < OrderList.length; i++) {
                     if (OrderList[i] != null) {
@@ -161,24 +154,6 @@ void main() {
 
                 choice++;
                 break;
-
-            case 5:
-
-                System.out.println("\nAll orders:");
-                for (int i = 0; i < OrderList.length; i++) {
-                    if (OrderList[i] != null) {
-                        System.out.println("Slot " + (i + 1) + ": Order ID - " + OrderList[i].getOrderId());
-                        System.out.println("Item: " + OrderList[i].getItem());
-                    } else {
-                        available++;
-                    }
-                }
-                if (available >= OrderList.length) {
-                    System.out.println(Colors.YELLOW + "There are no filled slots" + Colors.RESET);
-                    break;
-                }
-                break;
-
             case 6:
                 System.out.println("""
                         Search Orders:
@@ -205,63 +180,6 @@ void main() {
                     break;
                 }
                 //test purposes only
-            case 727:
-                System.out.println("WYSI, generating 2 orders in random slots");
-
-                int selectFood = 0;
-                choice = 0;
-
-                for (int i = 0; i <= 3; i++) {
-                    selectFood += (int) Math.round(Math.random());
-                }
-
-                Customer customer = new Customer(420, "Pogetora", "5033696061");
-                for (int i = 0; i <= 3; i++) {
-                    choice += (int) Math.round(Math.random());
-                }
-                System.out.println(selectFood + ", " + choice);
-                if (OrderList[choice] == null) {
-                    OrderList[choice] = new Details(customer.getName(),
-                            42069,
-                            Menu[selectFood].getItemName(),
-                            Menu[selectFood].getPrice(),
-                            "27/7/27",
-                            "the osu house",
-                            20,
-                            customer.getCustomerId(),
-                            customer.getPhone());
-                } else {
-                    System.out.println("Random Creation Failed: Slot not null");
-                }
-
-                selectFood = 0;
-                choice = 0;
-
-                for (int i = 0; i <= 3; i++) {
-                    selectFood += (int) Math.round(Math.random());
-                }
-
-                Customer customer2 = new Customer(727, "Poggiezi", "5184103265");
-                for (int i = 0; i <= 3; i++) {
-                    choice += (int) Math.round(Math.random());
-                }
-                System.out.println(selectFood + ", " + choice);
-                if (OrderList[choice] == null) {
-                    OrderList[choice] = new Details(customer2.getName(),
-                            6967,
-                            Menu[selectFood].getItemName(),
-                            Menu[selectFood].getPrice(),
-                            "29/8/29",
-                            "Necrofantasia",
-                            15,
-                            customer2.getCustomerId(),
-                            customer2.getPhone());
-                } else {
-                    System.out.println("Random Creation Failed: Slot not null");
-                }
-
-                choice = 1;
-                break;
 
 
             default:
@@ -339,31 +257,24 @@ Menu[] appendMenu(Menu[] currentMenu) {
 
     //I did not know this was a thing WHAAAT??
     System.arraycopy(currentMenu, 0, newMenu, 0, currentMenu.length);
-    System.out.println("New Item Creation: ");
-    newMenu[newLength - 1] = new Menu(IO.readln("Enter the item name: "), readChoice("Enter the price: PHP "), IO.readln("Enter the category of this item"));
+    System.out.println("\nNew Item Creation: ");
+    newMenu[newLength - 1] = new Menu(IO.readln("Enter the item name: "), readChoice("Enter the price: PHP "), IO.readln("Enter the category of this item: "));
     return newMenu;
 }
 
 Menu[] popMenu(Menu[] currentMenu) {
-    int newLength = currentMenu.length - 1;
-    Menu[] newMenu = new Menu[newLength];
-
     System.out.println("\nCurrent Menu: ");
     for (int i = 0; i < currentMenu.length; i++) {
         System.out.println((i + 1) + ": " + currentMenu[i].getItemName() + ": " + currentMenu[i].getPrice() + "PHP");
     }
 
     int itemRemove = readChoice("Enter which item number to remove: ") - 1;
-
-    currentMenu[itemRemove] = null;
-
-    for (int i = 0; i < currentMenu.length; i++) {
-        if (currentMenu[i] == null) {
-
-        }
-    }
+    int newLength = currentMenu.length;
+    Menu[] newMenu = new Menu[newLength];
 
 
 
-    return newMenu;
+
+
+    return currentMenu;
 }
