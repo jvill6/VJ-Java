@@ -48,6 +48,13 @@ void main() {
                 }
                 int selectFood = readChoice("\nEnter the item being ordered: "
                 ) - 1;
+
+                try  {
+                    Menu[selectFood].getItemName();
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("That menu item doesn't exist! Aborting..");
+                    break;
+                }
                 Customer customer = new Customer(
                         readChoice("\nEnter an ID number for this customer: "),
                         IO.readln("Enter the customers name: "),
@@ -222,6 +229,13 @@ Menu[] popMenu(Menu[] currentMenu) {
     }
 
     int itemRemove = readChoice("Enter which item number to remove: ") - 1;
+    try  {
+        currentMenu[itemRemove].getItemName();
+    } catch (ArrayIndexOutOfBoundsException e) {
+        System.out.println("That menu item doesn't exist! Aborting..");
+        return currentMenu;
+    }
+
     Menu[] newMenu = new Menu[currentMenu.length - 1];
 
     int j = 0;
@@ -245,21 +259,8 @@ Menu[] popMenu(Menu[] currentMenu) {
 }
 
 Order[] addOrder(Order[] currentOrders, Customer customer, int selectFood, Menu[] Menu) {
-    int orderCount = 0;
 
     Order[] newOrders = new Order[currentOrders.length + 1];
-    System.out.println(currentOrders.length);
-
-    System.out.println("\nExisting orders:");
-    for (int i = 0; i < currentOrders.length; i++) {
-        if (currentOrders[i] != null) {
-            System.out.println("Order #" + (i + 1));
-            orderCount++;
-        }
-    }
-    if (orderCount == 0) {
-        System.out.println("No orders exist right now.");
-    }
 
     System.arraycopy(currentOrders, 0, newOrders, 0, currentOrders.length);
     System.out.println("\nNew Item Creation: ");
