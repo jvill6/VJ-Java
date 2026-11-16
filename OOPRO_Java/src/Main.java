@@ -5,10 +5,12 @@ void main() {
     /* I forgot there really isn't a way to
     have a dynamic array in Java (at least not without some complications)
     so for now, this is locked to 4 slots
+
+    NOT ANYMORE I FIXED IT YASSSSSSSSS
      */
     Order[] OrderList = new Order[1];
 
-    //Instantly initialize a preset menu (this could be changed so that a custom menu can be made later on
+    //Instantly initialize a preset menu (Can be edited from the program)
     //String itemName, double price, String category
     Menu[] Menu = new Menu[5];
     Menu[0] = new Menu("Salad", 15, "Side");
@@ -54,21 +56,9 @@ void main() {
                         IO.readln("Enter the customers phone #: ")
                 );
 
-                System.out.println(Colors.GREEN + "New Customer Created!\n" + Colors.RESET);
+                OrderList = addOrder(OrderList, customer, selectFood, Menu);
 
-
-                System.out.println("Order Creation:");
-                OrderList[choice] = new Details(customer.getName(),
-                        readChoice("Enter an ID for this order: "),
-                        Menu[selectFood].getItemName(),
-                        Menu[selectFood].getPrice(),
-                        IO.readln("Enter the Event Date (DD/MM/YYYY): "),
-                        IO.readln("Enter the Venue Address: "),
-                        readChoice("Enter the # of guests: "),
-                        customer.getCustomerId(),
-                        customer.getPhone()
-                );
-                System.out.println(OrderList[choice].formatDetails());
+                System.out.println(OrderList[OrderList.length - 1].formatDetails());
 
                 //preventing choice from being 0 if slot 1 was chosen
                 choice++;
@@ -269,12 +259,90 @@ Menu[] popMenu(Menu[] currentMenu) {
     }
 
     int itemRemove = readChoice("Enter which item number to remove: ") - 1;
-    int newLength = currentMenu.length;
-    Menu[] newMenu = new Menu[newLength];
+    Menu[] newMenu = new Menu[currentMenu.length - 1];
+
+    int j = 0;
+    for (int i = 0; i < currentMenu.length; i++) {
+        if (i == itemRemove) {
+            System.out.println("Item Removed!");
+        } else {
+            newMenu[j] = currentMenu[i];
+            System.out.println(newMenu[j].getItemName() + ", " + currentMenu[i].getItemName());
+            j++;
+        }
+
+    }
+
+    for (int i = 0; i < currentMenu.length - 1; i++) {
+        System.out.println((i + 1) + ": " + newMenu[i].getItemName() + ": " + newMenu[i].getPrice() + "PHP");
+    }
 
 
 
 
-
-    return currentMenu;
+    return newMenu;
 }
+
+Order[] addOrder(Order[] currentOrders, Customer customer, int selectFood, Menu[] Menu) {
+    int newLength = currentOrders.length + 1;
+    int orderCount = 0;
+
+    Order[] newOrders = new Order[newLength];
+
+    System.out.println("\nExisting orders:");
+    for (int i = 0; i < currentOrders.length; i++) {
+        if (currentOrders[i] != null) {
+            System.out.println("Order # " + (i + 1) + ": ");
+            orderCount++;
+        }
+    } if (orderCount == 0) {
+        System.out.println("No orders exist right now.");
+    }
+
+    System.arraycopy(currentOrders, 0, newOrders, 0, currentOrders.length);
+    System.out.println("\nNew Item Creation: ");
+    newOrders[newLength - 1] = new Details(customer.getName(),
+            readChoice("Enter an ID for this order: "),
+            Menu[selectFood].getItemName(),
+            Menu[selectFood].getPrice(),
+            IO.readln("Enter the Event Date (DD/MM/YYYY): "),
+            IO.readln("Enter the Venue Address: "),
+            readChoice("Enter the # of guests: "),
+            customer.getCustomerId(),
+            customer.getPhone()
+    );
+    return newOrders;
+}
+
+/*
+Order[] removeOrder(Order[] currentOrders) {
+    System.out.println("\nCurrent Menu: ");
+    for (int i = 0; i < currentOrders.length; i++) {
+        System.out.println((i + 1) + ": " + currentOrders[i].getItemName() + ": " + currentOrders[i].getPrice() + "PHP");
+    }
+
+    int itemRemove = readChoice("Enter which item number to remove: ") - 1;
+    Order[] newOrders = new Order[currentOrders.length - 1];
+
+    int j = 0;
+    for (int i = 0; i < currentOrders.length; i++) {
+        if (i == itemRemove) {
+            System.out.println("Item Removed!");
+        } else {
+            newOrders[j] = currentOrders[i];
+            j++;
+        }
+
+    }
+
+    for (int i = 0; i < currentOrders.length - 1; i++) {
+        System.out.println((i + 1) + ": " + newOrders[i].getItemName() + ": " + newOrders[i].getPrice() + "PHP");
+    }
+
+
+
+
+    return newOrders;
+}
+
+ */
