@@ -8,7 +8,7 @@ void main() {
 
     NOT ANYMORE I FIXED IT YASSSSSSSSS
      */
-    Order[] OrderList = new Order[1];
+    Order[] OrderList = new Order[0];
 
     //Instantly initialize a preset menu (Can be edited from the program)
     //String itemName, double price, String category
@@ -41,65 +41,27 @@ void main() {
         int available = 0;
         switch (choice) {
             case 1:
-                System.out.println("\nCurrently Available Slots: ");
+                System.out.println("\nCreating new order: ");
                 System.out.println("\nList of Available Items: ");
                 for (int i = 0; i < Menu.length; i++) {
                     System.out.println((i + 1) + ": " + Menu[i].getItemName() + ": " + Menu[i].getPrice() + "PHP");
                 }
-
                 int selectFood = readChoice("\nEnter the item being ordered: "
                 ) - 1;
-
                 Customer customer = new Customer(
                         readChoice("\nEnter an ID number for this customer: "),
                         IO.readln("Enter the customers name: "),
                         IO.readln("Enter the customers phone #: ")
                 );
-
                 OrderList = addOrder(OrderList, customer, selectFood, Menu);
-
                 System.out.println(OrderList[OrderList.length - 1].formatDetails());
-
-                //preventing choice from being 0 if slot 1 was chosen
-                choice++;
-
                 break;
 
             case 2:
-
-                System.out.println("\nExisting orders:");
-                for (int i = 0; i < OrderList.length; i++) {
-                    if (OrderList[i] != null) {
-                        System.out.println("Slot " + (i + 1) + ": ");
-                    } else {
-                        available++;
-                    }
-                }
-                if (available >= OrderList.length) {
-                    System.out.println(Colors.YELLOW + "There are no filled slots" + Colors.RESET);
-                    break;
-                }
-
-                choice = readChoice(
-                        "Select a slot to remove: "
-                );
-
-                choice--;
-
-
-                if (OrderList[choice] == null) {
-                    System.out.println(Colors.RED + "That slot is empty!" + Colors.RESET);
-                    choice++;
-                    break;
-                }
-
-                OrderList[choice] = null;
-                System.out.println(Colors.GREEN + "Order Removed" + Colors.RESET);
-
-                choice++;
+                OrderList = removeOrder(OrderList);
                 break;
             case 3:
-                switch(readChoice("""
+                switch (readChoice("""
                         Edit Menu Selected: Select Option -
                         1. Add a new Item
                         2. Remove an Item
@@ -125,7 +87,7 @@ void main() {
                 System.out.println("\nExisting orders:");
                 for (int i = 0; i < OrderList.length; i++) {
                     if (OrderList[i] != null) {
-                        System.out.println("Slot " + (i + 1));
+                        System.out.println("Order # " + (i + 1));
                     } else {
                         available++;
                     }
@@ -137,9 +99,10 @@ void main() {
                 }
 
                 choice = readChoice("""
-                        Select a slot to view:     
+                        Select an order to view:     
                         """);
 
+                //Compiler says that it may try to point to a null object, but that shouldn't be possible because it'll break this case if there are no orders(?)
                 System.out.println(OrderList[choice - 1].formatDetails());
 
                 choice++;
@@ -212,7 +175,7 @@ public void filterOrders(String itemName, Order[] orderList) {
         if (orderList[i] == null) {
             //same as other method
         } else if (orderList[i].getItem().equalsIgnoreCase(itemName)) {
-            System.out.println("Slot " + (i + 1) + " matches item name: " + itemName);
+            System.out.println("Order # " + (i + 1) + " matches item name: " + itemName);
             found = true;
         }
 
@@ -278,30 +241,29 @@ Menu[] popMenu(Menu[] currentMenu) {
     }
 
 
-
-
     return newMenu;
 }
 
 Order[] addOrder(Order[] currentOrders, Customer customer, int selectFood, Menu[] Menu) {
-    int newLength = currentOrders.length + 1;
     int orderCount = 0;
 
-    Order[] newOrders = new Order[newLength];
+    Order[] newOrders = new Order[currentOrders.length + 1];
+    System.out.println(currentOrders.length);
 
     System.out.println("\nExisting orders:");
     for (int i = 0; i < currentOrders.length; i++) {
         if (currentOrders[i] != null) {
-            System.out.println("Order # " + (i + 1) + ": ");
+            System.out.println("Order #" + (i + 1));
             orderCount++;
         }
-    } if (orderCount == 0) {
+    }
+    if (orderCount == 0) {
         System.out.println("No orders exist right now.");
     }
 
     System.arraycopy(currentOrders, 0, newOrders, 0, currentOrders.length);
     System.out.println("\nNew Item Creation: ");
-    newOrders[newLength - 1] = new Details(customer.getName(),
+    newOrders[currentOrders.length] = new Details(customer.getName(),
             readChoice("Enter an ID for this order: "),
             Menu[selectFood].getItemName(),
             Menu[selectFood].getPrice(),
@@ -314,14 +276,23 @@ Order[] addOrder(Order[] currentOrders, Customer customer, int selectFood, Menu[
     return newOrders;
 }
 
-/*
+
 Order[] removeOrder(Order[] currentOrders) {
-    System.out.println("\nCurrent Menu: ");
+
+    int orderCount = 0;
+
     for (int i = 0; i < currentOrders.length; i++) {
-        System.out.println((i + 1) + ": " + currentOrders[i].getItemName() + ": " + currentOrders[i].getPrice() + "PHP");
+        if (currentOrders[i] != null) {
+            System.out.println("Order #" + (i + 1));
+            orderCount++;
+        }
+    }
+    if (orderCount == 0) {
+        System.out.println("No orders exist right now.");
+        return currentOrders;
     }
 
-    int itemRemove = readChoice("Enter which item number to remove: ") - 1;
+    int itemRemove = readChoice("Enter which order # to remove: ") - 1;
     Order[] newOrders = new Order[currentOrders.length - 1];
 
     int j = 0;
@@ -332,17 +303,16 @@ Order[] removeOrder(Order[] currentOrders) {
             newOrders[j] = currentOrders[i];
             j++;
         }
-
     }
 
-    for (int i = 0; i < currentOrders.length - 1; i++) {
-        System.out.println((i + 1) + ": " + newOrders[i].getItemName() + ": " + newOrders[i].getPrice() + "PHP");
+    if (j == 0) {
+        System.out.println("That order doesn't exist!");
     }
-
-
-
-
     return newOrders;
 }
 
- */
+
+
+
+
+
