@@ -150,7 +150,7 @@ void main() {
 
 
             default:
-                System.out.println("Invalid Option");
+                System.out.println(Colors.YELLOW + "Invalid Option" + Colors.RESET);
 
 
         }
